@@ -2,21 +2,14 @@ import { useState } from 'react';
 import { Header, Footer } from '../../components';
 import {
   MainStyled,
-  ArticleStyled,
   SectionStyled,
   HeaderStyled,
   H1Styled,
   H2Styled,
   H3Styled,
-  H4Styled,
   PStyled,
   AStyled,
-  Detailstyled,
-  SummaryStyled,
   SpanStyled,
-  FormStyled,
-  LabelStyled,
-  InputStyled,
   FlexContainerStyled,
   ButtonStyled
 } from './StyledComponents';
@@ -103,12 +96,32 @@ export const UserActionsPage = () => {
             <HeaderStyled>
               <H2Styled>4.- Considerations for fireEvent</H2Styled>
             </HeaderStyled>
+            <PStyled>
+              For detailed information on this topic you can follow the following link.
+            </PStyled>
+            <AStyled
+              href='https://testing-library.com/docs/guide-events'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              RTL: docs Considerations for fireEvent
+            </AStyled>
           </SectionStyled>
 
           <SectionStyled>
             <HeaderStyled>
               <H2Styled>5.- Using Fake Timers</H2Styled>
             </HeaderStyled>
+            <PStyled>
+              For detailed information on this topic you can follow the following link.
+            </PStyled>
+            <AStyled
+              href='https://testing-library.com/docs/using-fake-timers'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              RTL: docs Using Fake Timers
+            </AStyled>
           </SectionStyled>
 
           <SectionStyled>
