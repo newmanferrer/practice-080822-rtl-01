@@ -58,14 +58,108 @@ export const HomePage = () => {
               <H3Styled>2.- Users Actions</H3Styled>
             </HeaderStyled>
             <SectionStyled>
-              <HeaderStyled>
-                <H4Styled>2.1.- Firing Events</H4Styled>
-              </HeaderStyled>
               <PStyled>
-                Go to <LinkStyled to='/firingEvents'>Firing Events page</LinkStyled> , to study what
+                Go to <LinkStyled to='/UserActions'>User Actions page</LinkStyled> , to study what
                 is related to firing events and practice the different methods that we can use.
               </PStyled>
             </SectionStyled>
+          </SectionStyled>
+
+          <SectionStyled>
+            <HeaderStyled>
+              <H3Styled>3.- Advanced</H3Styled>
+            </HeaderStyled>
+
+            <SectionStyled>
+              <HeaderStyled>
+                <H4Styled>3.1.- Accessibility</H4Styled>
+              </HeaderStyled>
+              <PStyled>
+                Some interesting methods could be <SpanStyled>getRoles</SpanStyled>, this function
+                allows iteration over the implicit ARIA roles represented in a given tree of DOM
+                nodes.
+              </PStyled>
+              <PStyled>
+                We can also find <SpanStyled>isInaccessible</SpanStyled> and{' '}
+                <SpanStyled>logRoles</SpanStyled>
+              </PStyled>
+              <AStyled
+                href='https://testing-library.com/docs/dom-testing-library/api-accessibility'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                RTL: docs Accessibility
+              </AStyled>
+            </SectionStyled>
+
+            <SectionStyled>
+              <HeaderStyled>
+                <H4Styled>3.2.- Custom Queries</H4Styled>
+              </HeaderStyled>
+              <PStyled>
+                Some interesting methods could be <SpanStyled>getNodeText</SpanStyled>.
+              </PStyled>
+              <AStyled
+                href='https://testing-library.com/docs/dom-testing-library/api-custom-queries'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                RTL: docs Custom Queries
+              </AStyled>
+            </SectionStyled>
+
+            <SectionStyled>
+              <HeaderStyled>
+                <H4Styled>3.3.- Debugging</H4Styled>
+              </HeaderStyled>
+              <PStyled>
+                When you use any get calls in your test cases, the current state of the container
+                (DOM) gets printed on the console.
+              </PStyled>
+              <PStyled>
+                Some interesting methods could be <SpanStyled>prettyDOM</SpanStyled>,
+                <SpanStyled> logRoles</SpanStyled>, and <SpanStyled>console.log</SpanStyled>.
+              </PStyled>
+              <AStyled
+                href='https://testing-library.com/docs/dom-testing-library/api-debugging'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                RTL: docs Debugging
+              </AStyled>
+            </SectionStyled>
+
+            <SectionStyled>
+              <HeaderStyled>
+                <H4Styled>3.4.- Querying Within Elements</H4Styled>
+              </HeaderStyled>
+              <AStyled
+                href='https://testing-library.com/docs/dom-testing-library/api-within'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                RTL: docs Querying Within Elements
+              </AStyled>
+            </SectionStyled>
+
+            <SectionStyled>
+              <HeaderStyled>
+                <H4Styled>3.5.- Configuration Options</H4Styled>
+              </HeaderStyled>
+              <AStyled
+                href='https://testing-library.com/docs/dom-testing-library/api-configuration'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                RTL: docs Configuration Options
+              </AStyled>
+            </SectionStyled>
+          </SectionStyled>
+
+          <SectionStyled>
+            <HeaderStyled>
+              <H3Styled>4.- User Interactions</H3Styled>
+            </HeaderStyled>
           </SectionStyled>
         </ArticleStyled>
       </MainStyled>
