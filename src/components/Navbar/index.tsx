@@ -6,6 +6,7 @@ export const Navbar = () => {
       <NavLinkStyled to='/'>Home</NavLinkStyled>
       <NavLinkStyled to='/queries'>Queries</NavLinkStyled>
       <NavLinkStyled to='/userActions'>User Actions</NavLinkStyled>
+      <NavLinkStyled to='/userInteractions'>User Interactions</NavLinkStyled>
     </NavStyled>
   );
 };

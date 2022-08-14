@@ -160,6 +160,11 @@ export const HomePage = () => {
             <HeaderStyled>
               <H3Styled>4.- User Interactions</H3Styled>
             </HeaderStyled>
+            <PStyled>
+              Go to <LinkStyled to='/userInteractions'>User Interactions page</LinkStyled>, to study
+              what is related to user interactions and observe the different methods that we have at
+              our disposal to use.
+            </PStyled>
           </SectionStyled>
         </ArticleStyled>
       </MainStyled>

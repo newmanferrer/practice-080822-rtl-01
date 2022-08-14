@@ -30,7 +30,7 @@ import { COLORS } from '../../colors';
 //* 4.1.- NavStyled
 //* ---------------------------------------------------------------------------
 const NavStyled = styled.nav`
-  width: 23rem;
+  width: 35rem;
   margin-right: 1rem;
   padding: 0.5rem 1rem;
 
