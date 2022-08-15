@@ -12,11 +12,25 @@ import { COLORS } from '../../colors';
 //* ===========================================================================
 //* 2.- Models / Interfaces
 //* ===========================================================================
+type TflexDirection = 'column' | 'row';
+
+interface IFlexContainerStyledProps {
+  flexDirection?: TflexDirection;
+}
 //* ===========================================================================
 
 //* ===========================================================================
 //* 3.- Reusable Components
 //* ===========================================================================
+//* ---------------------------------------------------------------------------
+const DivFlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+//* ---------------------------------------------------------------------------
 //* ===========================================================================
 
 //* ===========================================================================
@@ -181,6 +195,97 @@ const LinkStyled = styled(Link)`
   }
 `;
 //* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.15.- Flex Container Styled
+//* ---------------------------------------------------------------------------
+const FlexContainerStyled = styled(DivFlexContainer)<IFlexContainerStyledProps>`
+  max-width: 70vw;
+  padding: 1rem;
+  flex-direction: ${({ flexDirection }) =>
+    flexDirection && flexDirection === 'row' ? 'row' : 'column'};
+  border: 2px solid ${COLORS.textWhite};
+  border-radius: 5px;
+`;
+//* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.16.- Button Styled
+//* ---------------------------------------------------------------------------
+const ButtonStyled = styled.button`
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+
+  color: ${COLORS.black};
+  font-weight: bold;
+  outline: none;
+  transition: all 0.7s ease-in-out;
+
+  border: none;
+  border-radius: 3px;
+  background-color: ${COLORS.redRTL};
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${COLORS.textBlueLight};
+  }
+`;
+//* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.13.- Form Styled
+//* ---------------------------------------------------------------------------
+const FormStyled = styled.form`
+  width: 90vw;
+  padding: 1rem;
+  font-size: 1rem;
+  color: ${COLORS.textBlueDark};
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid ${COLORS.textWhite};
+  border-radius: 5px;
+`;
+//* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.14.- Label Styled
+//* ---------------------------------------------------------------------------
+const LabelStyled = styled.label`
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  color: ${COLORS.textBlueDark};
+`;
+//* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.14.- Input Styled
+//* ---------------------------------------------------------------------------
+const InputStyled = styled.input`
+  margin-right: 0.5rem;
+  padding: 0.25rem;
+
+  font-size: 1rem;
+  color: ${COLORS.textBlueDark};
+  outline: none;
+`;
+//* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.15.- Select Styled
+//* ---------------------------------------------------------------------------
+const SelectStyled = styled.select`
+  width: 10vw;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: ${COLORS.textBlueDark};
+`;
+//* ---------------------------------------------------------------------------
 //* ===========================================================================
 
 //* ===========================================================================
@@ -201,7 +306,13 @@ export {
   SummaryStyled,
   SpanStyled,
   CodeStyled,
-  LinkStyled
+  LinkStyled,
+  FlexContainerStyled,
+  ButtonStyled,
+  FormStyled,
+  LabelStyled,
+  InputStyled,
+  SelectStyled
 };
 //* ===========================================================================
 //* ///////////////////////////////////////////////////////////////////////////

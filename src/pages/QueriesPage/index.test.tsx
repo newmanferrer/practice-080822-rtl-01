@@ -56,7 +56,7 @@ describe('test <QueriesPage />', () => {
   it('test #2 (getAllByRole): get all specific elements in the document', () => {
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1); // h1
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(8); // h2
-    expect(screen.getAllByRole('link')).toHaveLength(5); // a
+    expect(screen.getAllByRole('link')).toHaveLength(6); // a
     expect(screen.getAllByRole('region')).toHaveLength(6); // section
     expect(screen.getAllByRole('form')).toHaveLength(1); // form
     expect(screen.getAllByRole('textbox')).toHaveLength(2); // input
@@ -205,6 +205,6 @@ describe('test <QueriesPage />', () => {
     expect(await screen.findAllByRole('heading', { level: 1 })).toHaveLength(1);
     expect(await screen.findAllByRole('heading', { level: 2 })).toHaveLength(8);
     expect(await screen.findAllByRole('region')).toHaveLength(6);
-    expect(await screen.findAllByRole('link')).toHaveLength(5);
+    expect(await screen.findAllByRole('link')).toHaveLength(6);
   });
 });

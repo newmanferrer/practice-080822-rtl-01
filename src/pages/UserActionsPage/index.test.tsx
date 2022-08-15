@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { UserActionsPage } from './index';
+import { UserActionsPage } from './';
 
 describe('test <FiringEventsPage />', () => {
   beforeEach(() => {
