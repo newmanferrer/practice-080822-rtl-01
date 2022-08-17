@@ -15,6 +15,7 @@ type TflexDirection = 'column' | 'row';
 
 interface IFlexContainerStyledProps {
   flexDirection?: TflexDirection;
+  border?: boolean;
 }
 //* ===========================================================================
 
@@ -232,7 +233,7 @@ const FlexContainerStyled = styled(DivFlexContainer)<IFlexContainerStyledProps>`
   padding: 1rem;
   flex-direction: ${({ flexDirection }) =>
     flexDirection && flexDirection === 'row' ? 'row' : 'column'};
-  border: 2px solid ${COLORS.textWhite};
+  border: ${({ border }) => (border ? `2px solid ${COLORS.textWhite}` : '2px solid transparent')};
   border-radius: 5px;
 `;
 //* ---------------------------------------------------------------------------
@@ -259,6 +260,16 @@ const ButtonStyled = styled.button`
   }
 `;
 //* ---------------------------------------------------------------------------
+
+//* ---------------------------------------------------------------------------
+//* 4.17.- Img Styled
+//* ---------------------------------------------------------------------------
+const ImgStyled = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+`;
+//* ---------------------------------------------------------------------------
 //* ===========================================================================
 
 //* ===========================================================================
@@ -283,7 +294,8 @@ export {
   LabelStyled,
   InputStyled,
   FlexContainerStyled,
-  ButtonStyled
+  ButtonStyled,
+  ImgStyled
 };
 //* ===========================================================================
 //* ///////////////////////////////////////////////////////////////////////////
