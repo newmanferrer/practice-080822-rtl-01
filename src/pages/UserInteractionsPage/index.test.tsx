@@ -183,6 +183,8 @@ describe('test <UserInteractionsPage />', () => {
     const buttonAdd: HTMLButtonElement = screen.getByRole('button', { name: /^\+1$/ });
 
     await user.hover(buttonAdd);
+    // expect(buttonAdd).toHaveStyle('cursor: pointer');
+
     await user.pointer([{ target: buttonAdd }]);
     await user.unhover(buttonAdd);
   });
