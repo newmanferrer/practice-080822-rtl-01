@@ -41,7 +41,7 @@ interface ILogin {
 
 interface IDob {
   age: number;
-  date: Date;
+  date: string;
 }
 
 interface IRegistered {

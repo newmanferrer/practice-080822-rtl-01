@@ -1,15 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { prettyDOM, render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UserInteractionsPage } from './';
+import { COLORS } from '../../colors';
 
 describe('test <UserInteractionsPage />', () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<UserInteractionsPage />} />
-        </Routes>
+        <UserInteractionsPage />
       </BrowserRouter>
     );
   });
@@ -26,6 +25,9 @@ describe('test <UserInteractionsPage />', () => {
 
     await user.click(screen.getByRole('button', { name: /^\+1$/ }));
     expect(screen.getByText(/^Counter: 1$/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: /Counter:/i })).toHaveTextContent(
+      /^Counter: 1$/
+    );
   });
 
   it('test #2 (user-event click): should click two times in the "button -1"', async () => {
@@ -33,7 +35,12 @@ describe('test <UserInteractionsPage />', () => {
 
     await user.click(screen.getByRole('button', { name: /^-1$/ }));
     await user.click(screen.getByRole('button', { name: /^-1$/ }));
+
     expect(screen.getByText(/^Counter: -2$/)).toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { level: 3, name: /Counter:/i })).toHaveTextContent(
+      /^Counter: -2$/
+    );
   });
 
   it('test #3 (user-event click): should click one time in the "button Reset"', async () => {
@@ -42,7 +49,12 @@ describe('test <UserInteractionsPage />', () => {
     await user.click(screen.getByRole('button', { name: /^-1$/ }));
     await user.click(screen.getByRole('button', { name: /^-1$/ }));
     await user.click(screen.getByRole('button', { name: /^Reset$/ }));
+
     expect(screen.getByText(/^Counter: 0$/)).toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { level: 3, name: /Counter:/i })).toHaveTextContent(
+      /^Counter: 0$/
+    );
   });
   //* ----------------------------------------------------------------------------------------------
 
@@ -86,32 +98,63 @@ describe('test <UserInteractionsPage />', () => {
   it('test #9 (user-event selectOptions(), deselectOptions()):', async () => {
     const user = userEvent.setup();
 
-    await user.selectOptions(screen.getByRole('listbox'), ['A', 'A']);
-    const selectLetters = screen.getByRole('listbox');
-    const optionA: HTMLOptionElement = screen.getByRole('option', { name: 'A' });
-    const optionB: HTMLOptionElement = screen.getByRole('option', { name: 'B' });
+    //* Select Languages
+    const selectLanguages: HTMLSelectElement = screen.getByRole('listbox', {
+      name: /^select languages$/
+    });
+    const optionJavaScript: HTMLOptionElement = screen.getByRole('option', { name: 'JAVASCRIPT' });
+    const optionJava: HTMLOptionElement = screen.getByRole('option', { name: 'JAVA' });
     const optionC: HTMLOptionElement = screen.getByRole('option', { name: 'C' });
 
-    await user.selectOptions(selectLetters, ['A', 'A']);
+    await user.selectOptions(selectLanguages, ['javascript', 'JAVASCRIPT']);
 
-    expect(optionA.selected).toBe(true);
-    expect(optionB.selected).toBe(false);
+    expect(optionJavaScript.selected).toBe(true);
+    expect(optionJava.selected).toBe(false);
     expect(optionC.selected).toBe(false);
 
-    await user.deselectOptions(selectLetters, 'A');
-    await user.selectOptions(selectLetters, ['C', 'C']);
+    await user.deselectOptions(selectLanguages, ['javascript', 'JAVASCRIPT']);
+    await user.selectOptions(selectLanguages, ['java', 'JAVA']);
 
-    expect(optionA.selected).toBe(false);
-    expect(optionB.selected).toBe(false);
-    expect(optionC.selected).toBe(true);
+    expect(optionJavaScript.selected).toBeFalsy();
+    expect(optionJava.selected).toBeTruthy();
+    expect(optionC.selected).toBeFalsy();
 
-    await user.selectOptions(selectLetters, ['A', 'A']);
-    await user.selectOptions(selectLetters, ['B', 'B']);
-    await user.selectOptions(selectLetters, ['C', 'C']);
+    await user.selectOptions(selectLanguages, ['javascript', 'JAVASCRIPT']);
+    await user.selectOptions(selectLanguages, ['java', 'JAVA']);
+    await user.selectOptions(selectLanguages, ['C', 'C']);
 
-    expect(optionA.selected).toBe(true);
-    expect(optionB.selected).toBe(true);
-    expect(optionC.selected).toBe(true);
+    expect(optionJavaScript.selected).toBeTruthy();
+    expect(optionJava.selected).toBeTruthy();
+    expect(optionC.selected).toBeTruthy();
+
+    //* Select Frameworks
+    const selectFrameworks: HTMLSelectElement = screen.getByRole('listbox', {
+      name: /^select frameworks$/
+    });
+    const optionReact: HTMLOptionElement = screen.getByRole('option', { name: 'REACT' });
+    const optionVue: HTMLOptionElement = screen.getByRole('option', { name: 'VUE' });
+    const optionAngular: HTMLOptionElement = screen.getByRole('option', { name: 'ANGULAR' });
+
+    await user.selectOptions(selectFrameworks, ['angular', 'ANGULAR']);
+
+    expect(optionReact.selected).toBe(false);
+    expect(optionVue.selected).toBe(false);
+    expect(optionAngular.selected).toBe(true);
+
+    await user.deselectOptions(selectFrameworks, ['angular', 'ANGULAR']);
+    await user.selectOptions(selectFrameworks, ['react', 'REACT']);
+
+    expect(optionReact.selected).toBeTruthy();
+    expect(optionVue.selected).toBeFalsy();
+    expect(optionAngular.selected).toBeFalsy();
+
+    await user.selectOptions(selectFrameworks, ['react', 'REACT']);
+    await user.selectOptions(selectFrameworks, ['vue', 'VUE']);
+    await user.selectOptions(selectFrameworks, ['angular', 'ANGULAR']);
+
+    expect(optionReact.selected).toBeTruthy();
+    expect(optionVue.selected).toBeTruthy();
+    expect(optionAngular.selected).toBeTruthy();
   });
 
   it('test #10 (user-event type()): should type into an input name field', async () => {
@@ -130,30 +173,53 @@ describe('test <UserInteractionsPage />', () => {
   //* ----------------------------------------------------------------------------------------------
 
   //* ----------------------------------------------------------------------------------------------
-  //* 4.- Convenience APIs
+  //* 4.- Parentheses on style tests
   //* ----------------------------------------------------------------------------------------------
-  it('test #11 (user-event click() and pointer(): )', async () => {
+  it('test #11 (normal and jest-styled-components): should that "button reset" have the following styles', () => {
+    const buttonReset = screen.getByRole('button', { name: /^Reset$/ });
+
+    expect(buttonReset).toBeInTheDocument();
+
+    //* normal
+    expect(buttonReset).toHaveStyle(`background-color: ${COLORS.redRTL}`);
+    expect(buttonReset).toHaveStyle({
+      'background-color': `${COLORS.redRTL}`,
+      color: `${COLORS.black}`
+    });
+
+    //* jest-styled-components
+    expect(buttonReset).toHaveStyleRule('background-color', `${COLORS.redRTL}`);
+    expect(buttonReset).toHaveStyleRule('background-color', `${COLORS.textBlueLight}`, {
+      modifier: '&:hover '
+    });
+  });
+  //* ----------------------------------------------------------------------------------------------
+
+  //* ----------------------------------------------------------------------------------------------
+  //* 5.- Convenience APIs
+  //* ----------------------------------------------------------------------------------------------
+  it('test #12 (user-event click() and pointer(): )', async () => {
     const user = userEvent.setup();
     const buttonSubtract = screen.getByRole('button', { name: /^-1$/ });
     const buttonReset = screen.getByRole('button', { name: /^Reset$/ });
     const buttonAdd = screen.getByRole('button', { name: /^\+1$/ });
 
     await user.pointer([{ target: buttonReset }, { keys: '[MouseLeft]', target: buttonSubtract }]);
-    expect(screen.getByText('Counter: -1')).toBeInTheDocument();
+    expect(screen.getByText(/^Counter: -1$/)).toBeInTheDocument();
 
     await user.pointer([{ target: buttonReset }, { keys: '[MouseLeft]', target: buttonSubtract }]);
-    expect(screen.getByText('Counter: -2')).toBeInTheDocument();
+    expect(screen.getByText(/^Counter: -2$/)).toBeInTheDocument();
 
     await user.click(buttonAdd);
     await user.click(buttonAdd);
     await user.click(buttonAdd);
-    expect(screen.getByText('Counter: 1')).toBeInTheDocument();
+    expect(screen.getByText(/^Counter: 1$/)).toBeInTheDocument();
 
     await user.pointer([{ target: buttonAdd }, { keys: '[MouseLeft]', target: buttonReset }]);
-    expect(screen.getByText('Counter: 0')).toBeInTheDocument();
+    expect(screen.getByText(/^Counter: 0$/)).toBeInTheDocument();
   });
 
-  it('test #12 (user-event dblClick() and tripleClick(): )', async () => {
+  it('test #13 (user-event dblClick() and tripleClick(): )', async () => {
     const user = userEvent.setup();
     const buttonSubtract: HTMLButtonElement = screen.getByRole('button', { name: /^-1$/ });
     const buttonReset: HTMLButtonElement = screen.getByRole('button', { name: /^Reset$/ });
@@ -178,15 +244,16 @@ describe('test <UserInteractionsPage />', () => {
     expect(screen.getByText('Counter: 0')).toBeInTheDocument();
   });
 
-  it('test #13 (user-event hover() and unhover: )', async () => {
+  it('test #14 (user-event hover and unhover): ', async () => {
     const user = userEvent.setup();
     const buttonAdd: HTMLButtonElement = screen.getByRole('button', { name: /^\+1$/ });
 
-    await user.hover(buttonAdd);
-    // expect(buttonAdd).toHaveStyle('cursor: pointer');
+    expect(buttonAdd).toBeInTheDocument();
+    expect(buttonAdd).toHaveStyle(`background-color: ${COLORS.redRTL}`);
 
-    await user.pointer([{ target: buttonAdd }]);
-    await user.unhover(buttonAdd);
+    // this does not work
+    // await user.hover(buttonAdd);
+    // expect(buttonAdd).toHaveStyle(`background-color: ${COLORS.textBlueLight}`);
   });
   //* ----------------------------------------------------------------------------------------------
 });

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { QueriesPage } from './index';
 
@@ -6,9 +6,7 @@ describe('test <QueriesPage />', () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<QueriesPage />} />
-        </Routes>
+        <QueriesPage />
       </BrowserRouter>
     );
   });
@@ -42,14 +40,13 @@ describe('test <QueriesPage />', () => {
       screen.getByRole('heading', { level: 2, name: /^2.- Priority of Queries$/ })
     ).toBeInTheDocument();
 
-    expect(screen.getByRole('heading', { name: /^2.- Priority of Queries$/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /^RTL: docs queries$/ })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /^1.- Types of Queries$/ })).toBeDefined();
     expect(screen.getByRole('heading', { name: /^1.- Types of Queries$/ })).toBeEnabled();
     expect(screen.getByRole('heading', { name: /^1.- Types of Queries$/ })).not.toBeDisabled();
 
     expect(screen.getByRole('heading', { name: /^1.- Types of Queries$/ })).not.toHaveAttribute(
-      'data-true'
+      'data-testid'
     );
   });
 

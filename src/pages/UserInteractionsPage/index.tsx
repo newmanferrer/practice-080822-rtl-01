@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Header, Footer } from '../../components';
+import { useState } from 'react';
+import { Header, Footer, Counter } from '../../components';
 import {
   MainStyled,
   SectionStyled,
   HeaderStyled,
   H1Styled,
   H2Styled,
-  H3Styled,
   PStyled,
   AStyled,
   SpanStyled,
@@ -30,7 +29,6 @@ const initialStateForm: IInitialStateForm = {
 };
 
 export const UserInteractionsPage = () => {
-  const [counter, setCounter] = useState(0);
   const [form, setForm] = useState(initialStateForm);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,14 +220,7 @@ export const UserInteractionsPage = () => {
             <HeaderStyled>
               <H2Styled>12.- Counter for examples</H2Styled>
             </HeaderStyled>
-            <FlexContainerStyled flexDirection='column'>
-              <H3Styled>Counter: {counter}</H3Styled>
-              <FlexContainerStyled flexDirection='row'>
-                <ButtonStyled onClick={() => setCounter(counter - 1)}>-1</ButtonStyled>
-                <ButtonStyled onClick={() => setCounter(0)}>Reset</ButtonStyled>
-                <ButtonStyled onClick={() => setCounter(counter + 1)}>+1</ButtonStyled>
-              </FlexContainerStyled>
-            </FlexContainerStyled>
+            <Counter />
           </SectionStyled>
 
           <SectionStyled role='region'>
@@ -270,10 +261,18 @@ export const UserInteractionsPage = () => {
               <H2Styled>14.- Select multiple for examples</H2Styled>
             </HeaderStyled>
             <FlexContainerStyled>
-              <SelectStyled multiple>
-                <option value='A'>A</option>
-                <option value='B'>B</option>
-                <option value='C'>C</option>
+              <SelectStyled multiple aria-label='select languages'>
+                <option value='javascript'>JAVASCRIPT</option>
+                <option value='java'>JAVA</option>
+                <option value='c'>C</option>
+              </SelectStyled>
+            </FlexContainerStyled>
+
+            <FlexContainerStyled>
+              <SelectStyled multiple aria-label='select frameworks'>
+                <option value='react'>REACT</option>
+                <option value='vue'>VUE</option>
+                <option value='angular'>ANGULAR</option>
               </SelectStyled>
             </FlexContainerStyled>
           </SectionStyled>

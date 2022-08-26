@@ -104,8 +104,6 @@ const H3Styled = styled.h3`
 //* 4.8.- H4 Styled
 //* ---------------------------------------------------------------------------
 const H4Styled = styled.h4`
-  margin-bottom: 1rem;
-
   text-align: left;
   font-size: 1.6rem;
   color: ${COLORS.textWhite};
@@ -229,7 +227,8 @@ const InputStyled = styled.input`
 //* 4.15.- Flex Container Styled
 //* ---------------------------------------------------------------------------
 const FlexContainerStyled = styled(DivFlexContainer)<IFlexContainerStyledProps>`
-  max-width: 70vw;
+  max-width: 60vw;
+  margin-bottom: 0.5rem;
   padding: 1rem;
   flex-direction: ${({ flexDirection }) =>
     flexDirection && flexDirection === 'row' ? 'row' : 'column'};

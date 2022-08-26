@@ -279,7 +279,7 @@ const InputStyled = styled.input`
 //* 4.15.- Select Styled
 //* ---------------------------------------------------------------------------
 const SelectStyled = styled.select`
-  width: 10vw;
+  width: 20vw;
   padding: 1rem;
   font-size: 1rem;
   font-weight: bold;

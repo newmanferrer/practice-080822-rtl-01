@@ -1,1 +1,6 @@
-export { getFiveRandomUsers } from './randomuserapi/randomuserapi';
+export {
+  getFiveRandomUsersFetch,
+  getFiveRandomUsersFemaleFetch,
+  getFiveRandomUsersAxios,
+  getFiveRandomUsersFemaleAxios
+} from './randomuserapi/randomuserapi';

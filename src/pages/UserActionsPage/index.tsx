@@ -1,41 +1,16 @@
-import { useState, useEffect } from 'react';
-import { getFiveRandomUsers } from '../../services';
-import { IUser } from '../../models';
-import { Header, Footer, Loader, Message } from '../../components';
+import { Header, Footer, Counter, RandomUsers } from '../../components';
 import {
   MainStyled,
   SectionStyled,
   HeaderStyled,
   H1Styled,
   H2Styled,
-  H3Styled,
-  H4Styled,
   PStyled,
   AStyled,
-  SpanStyled,
-  FlexContainerStyled,
-  ButtonStyled,
-  ImgStyled
+  SpanStyled
 } from './StyledComponents';
 
 export const UserActionsPage = () => {
-  const [counter, setCounter] = useState(0);
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [errorState, setErrorState] = useState({ hasError: false, message: '' });
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getFiveRandomUsers()
-      .then(data => setUsers(data.results))
-      .catch(error => handleError(error))
-      .finally(() => setIsLoading(false));
-  }, []);
-
-  const handleError = (error: any) => {
-    setErrorState({ hasError: true, message: error.message });
-  };
-
   return (
     <>
       <Header />
@@ -158,41 +133,14 @@ export const UserActionsPage = () => {
             <HeaderStyled>
               <H2Styled>7.- Counter for examples</H2Styled>
             </HeaderStyled>
-            <FlexContainerStyled flexDirection='column'>
-              <H3Styled>Counter: {counter}</H3Styled>
-              <FlexContainerStyled flexDirection='row'>
-                <ButtonStyled onClick={() => setCounter(counter - 1)}>-1</ButtonStyled>
-                <ButtonStyled onClick={() => setCounter(0)}>Reset</ButtonStyled>
-                <ButtonStyled onClick={() => setCounter(counter + 1)}>+1</ButtonStyled>
-              </FlexContainerStyled>
-            </FlexContainerStyled>
+            <Counter />
           </SectionStyled>
 
           <SectionStyled>
             <HeaderStyled>
               <H2Styled>8.- Random Users for examples</H2Styled>
             </HeaderStyled>
-            {!errorState.hasError && isLoading && <Loader />}
-            {errorState.hasError && <Message type='error' text={errorState.message} />}
-            {!errorState.hasError &&
-              !isLoading &&
-              users &&
-              users.map(user => (
-                <FlexContainerStyled
-                  key={`${user.id.value}-${user.cell}`}
-                  flexDirection='column'
-                  border
-                >
-                  <FlexContainerStyled>
-                    <ImgStyled src={user.picture.thumbnail} alt='user image' />
-                  </FlexContainerStyled>
-                  <FlexContainerStyled>
-                    <H4Styled>
-                      {user.name.title}. {user.name.first} {user.name.last}
-                    </H4Styled>
-                  </FlexContainerStyled>
-                </FlexContainerStyled>
-              ))}
+            <RandomUsers />
           </SectionStyled>
         </SectionStyled>
       </MainStyled>

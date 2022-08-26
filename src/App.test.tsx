@@ -2,108 +2,103 @@ import { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { App } from './App';
 
-describe('test <App />', () => {
+describe('test App Component', () => {
   afterEach(() => {
     jest.clearAllMocks;
   });
 
-  it('test #1: should render this component mock', () => {
-    const h1Mock = <h1>My component h1</h1>;
-    const component = render(h1Mock);
-    // component.debug();
+  it('test #1: should show "Learning React Testing Library", in the document', () => {
+    const { getByRole } = render(<App />);
 
     expect(
-      component.getByRole('heading', { level: 1, name: /^My component h1$/ })
+      getByRole('heading', { level: 1, name: /^Learning React Testing Library$/ })
     ).toBeInTheDocument();
   });
 
-  it('test #2: should show "Learning React Testing Library", in the document', () => {
+  it('test #2 (Mock): should show "Learning React Testing Library", in the document', () => {
+    const mockH1 = <h1>Learning React Testing Library</h1>;
+    const { getByRole } = render(mockH1);
+
+    expect(
+      getByRole('heading', { level: 1, name: /^Learning React Testing Library$/ })
+    ).toBeInTheDocument();
+  });
+
+  it('test #3: should show "Practice No. 1", in the document', () => {
     render(<App />);
 
-    const myH1 = screen.getByRole('heading', {
-      level: 1,
-      name: /^Learning React Testing Library$/
-    });
-
-    expect(myH1).toBeInTheDocument();
+    const h2Element = screen.getByRole('heading', { level: 2, name: /^Practice No. 1$/ });
+    expect(h2Element).toBeInTheDocument();
   });
 
-  it('test #3: should render this component mock and show "Hello, world!", in the document', () => {
-    const h1Mock = <h1>Hello, world!</h1>;
-    const { getByRole } = render(h1Mock);
+  it('test #4 (Mock): should show "Practice No. 1", in the document', () => {
+    const mockH2 = <h2>Practice No. 1</h2>;
+    render(mockH2);
 
-    expect(getByRole('heading', { level: 1, name: 'Hello, world!' })).toBeInTheDocument();
-    expect(screen.getByText('Hello, world!')).toBeInTheDocument();
+    const h2Element = screen.getByRole('heading', { level: 2, name: /^Practice No. 1$/ });
+    expect(h2Element).toBeInTheDocument();
   });
 
-  it('test #4: should renders a functional component and show "Hello, world!"', () => {
+  it('test #5: should renders a functional component and show "Hello, world!"', () => {
     const HelloWorld = () => <h1>Hello, world!</h1>;
-    const { debug, getByRole } = render(<HelloWorld />);
+    const { getByRole } = render(<HelloWorld />);
 
-    // debug();
     expect(getByRole('heading', { level: 1, name: 'Hello, world!' })).toBeInTheDocument();
   });
 
-  it('test #5: should re-render this functional component mock', () => {
-    interface INumberDisplayMockProps {
+  it('test #6: should re-render a functional component', () => {
+    interface IDisplayNumberProps {
       number: number;
     }
 
-    const NumberDisplayMock = ({ number }: INumberDisplayMockProps) => <article>{number}</article>;
-    const { rerender } = render(<NumberDisplayMock number={1} />);
+    const DisplayNumber = ({ number }: IDisplayNumberProps) => <article>{number}</article>;
+    const { rerender, getByRole } = render(<DisplayNumber number={1} />);
+    expect(getByRole('article')).toHaveTextContent('1');
 
-    expect(screen.getByRole('article')).toHaveTextContent('1');
-
-    rerender(<NumberDisplayMock number={2} />);
-    expect(screen.getByRole('article')).toHaveTextContent('2');
+    rerender(<DisplayNumber number={2} />);
+    expect(getByRole('article')).toHaveTextContent('2');
   });
 
-  it('test #6: should unmount the App component', () => {
+  it('test #7: should unmount the App component', () => {
     const { getByRole, unmount } = render(<App />);
-    const myH1 = getByRole('heading', { level: 1, name: /^Learning React Testing Library$/ });
+    const h1element = getByRole('heading', { level: 1, name: /^Learning React Testing Library$/ });
 
-    expect(myH1).toBeInTheDocument();
+    expect(h1element).toBeInTheDocument();
     unmount();
-    expect(myH1).not.toBeInTheDocument();
+    expect(h1element).not.toBeInTheDocument();
   });
 
-  it('test #7 (fireEvent): should click in the button component mock', () => {
+  it('test #8: should that the number of elements heading is correct ', () => {
+    const { getAllByRole } = render(<App />);
+
+    expect(getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(getAllByRole('heading', { level: 2 })).toHaveLength(3);
+    expect(getAllByRole('heading', { level: 3 })).toHaveLength(4);
+    expect(getAllByRole('heading', { level: 4 })).toHaveLength(5);
+  });
+
+  it('test #9 (Mock): should click in the button component mock use fireEvent', () => {
     const CounterMock = () => {
       const [count, setCount] = useState(0);
 
       return (
         <>
-          <article>{count}</article>
+          <article title='count article'>{count}</article>
           <button onClick={() => setCount(count => count + 1)}>add 1</button>;
         </>
       );
     };
 
     const { getByRole } = render(<CounterMock />);
-    const myArticle = getByRole('article');
-    const myButton = getByRole('button', { name: /^add 1$/ });
+    const article = getByRole('article', { name: /^count article$/ });
+    const button = getByRole('button', { name: /^add 1$/ });
 
-    expect(myArticle).toHaveTextContent('0');
+    expect(article).toHaveTextContent('0');
 
-    fireEvent.click(myButton);
-    fireEvent.click(myButton);
-    fireEvent.click(myButton);
-    expect(myArticle).toHaveTextContent('3');
-  });
+    fireEvent.click(button);
+    fireEvent.click(button);
+    fireEvent.click(button);
 
-  it('test #8: should that the number of elements heading is correct ', () => {
-    const { getAllByRole } = render(<App />);
-
-    const h1Elements = getAllByRole('heading', { level: 1 });
-    expect(h1Elements).toHaveLength(1);
-
-    const h2Elements = getAllByRole('heading', { level: 2 });
-    expect(h2Elements).toHaveLength(3);
-
-    const h3Elements = getAllByRole('heading', { level: 3 });
-    expect(h3Elements).toHaveLength(4);
-
-    const h4Elements = getAllByRole('heading', { level: 4 });
-    expect(h4Elements).toHaveLength(5);
+    expect(article).toHaveTextContent('3');
   });
 });
