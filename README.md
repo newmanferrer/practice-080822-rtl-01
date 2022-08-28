@@ -17,12 +17,12 @@ Below are the points and topics that we will study and test in this first part.
 - API
 
   - render
-    - container
-    - baseElement
-    - queries
-    - debug
-    - rerender
-    - unmount
+  - container
+  - baseElement
+  - queries
+  - debug
+  - rerender
+  - unmount
   - cleanup
   - act
 
@@ -53,6 +53,8 @@ I hope that this information, as well as me, can also be useful for other people
 ## Resources and documentation used
 
 Testing Library: https://testing-library.com/
+
+Chrome web store extensions: Testing Playground
 
 ## Used technology
 
