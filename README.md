@@ -2,22 +2,6 @@
 
 # PRACTICE: REACT TESTING LIBRARY No. 1
 
-- QUERIES.
-  - ByRole
-  - ByLabelText
-  - ByPlaceholderText
-  - ByText
-  - ByDisplayValue
-  - ByAltText
-  - ByTitle
-  - ByTestId
-- USER ACTIONS.
-  - Firing Events
-  - Async Methods
-  - Appearance and Disappearance
-  - Considerations for fireEvent
-  - Using Fake Timers
-
 ## Project description
 
 The main objective of this project is to improve skills related to testing, always taking the front end as a priority.
@@ -26,7 +10,49 @@ In this case and taking into account our priority, I have chosen to use React Te
 
 Another important aspect is that with React Testing Library we can focus on tests from the perspective of the end user, that is, how the user interacts with our application, this seems very interesting to me.
 
+For this initial practice I will try to follow the official documentation that RTL offers us.
+
+Below are the points and topics that we will study and test in this first part.
+
+- API
+
+  - render
+    - container
+    - baseElement
+    - queries
+    - debug
+    - rerender
+    - unmount
+  - cleanup
+  - act
+
+- QUERIES (Priority).
+
+  - ByRole
+  - ByLabelText
+  - ByPlaceholderText
+  - ByText
+  - ByDisplayValue
+  - ByAltText
+  - ByTitle
+  - ByTestId
+
+- USER ACTIONS.
+
+  - Firing Events
+  - Async Methods
+  - Appearance and Disappearance
+  - Considerations for fireEvent
+  - Using Fake Timers
+
+- USER INTERACTIOS
+  - user-event
+
 I hope that this information, as well as me, can also be useful for other people interested in testing their applications.
+
+## Resources and documentation used
+
+Testing Library: https://testing-library.com/
 
 ## Used technology
 
@@ -46,10 +72,6 @@ I hope that this information, as well as me, can also be useful for other people
 - Prettier
 - Yarn
 - Vite
-
-## Resources and documentation used
-
-Testing Library: https://testing-library.com/
 
 ## Developers: Requirements
 
