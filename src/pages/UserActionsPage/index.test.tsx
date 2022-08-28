@@ -1,15 +1,11 @@
 import {
   render,
   screen,
+  RenderResult,
   fireEvent,
   waitFor,
-  act,
-  prettyDOM,
-  RenderResult,
   waitForElementToBeRemoved,
-  getByAltText,
-  getByTestId,
-  getByText
+  act
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { UserActionsPage } from '.';
@@ -492,17 +488,17 @@ describe('test <UserActionsPage />', () => {
     });
 
     it('test #16: should show error message in the document', async () => {
-      mockedAxios.get.mockImplementationOnce(() =>
-        Promise.reject({ data: mockedRejectExpectedResponse })
-      );
+      mockedAxios.get.mockImplementationOnce(() => Promise.reject(mockedRejectExpectedResponse));
 
-      const { findByTestId } = render(
-        <BrowserRouter>
-          <UserActionsPage />
-        </BrowserRouter>
-      );
+      await act(() => {
+        render(
+          <BrowserRouter>
+            <UserActionsPage />
+          </BrowserRouter>
+        );
+      });
 
-      expect(findByTestId(/^message$/)).toBeInTheDocument();
+      expect(screen.getByText(/^Network error$/)).toBeInTheDocument();
     });
   });
 });
@@ -511,4 +507,6 @@ describe('test <UserActionsPage />', () => {
 //* NOTES:
 //* -------------------------------------------------------------------------------------
 //* 1.- Don't remove the "await" from the "act" inside the "beforeEach"
+//*     With this, we wait for all the changes of our states (setState, useEffect, etc.),
+//*     before carrying out the tests of our components.
 //* -------------------------------------------------------------------------------------
